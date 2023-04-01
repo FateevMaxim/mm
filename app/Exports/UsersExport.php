@@ -57,8 +57,8 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             $data->track_code,
             $data->status,
             $data->city,
-            $data->user->name,
-            $data->user->login,
+            $data->user->name ?? '',
+            $data->user->login ?? '',
         ];
     }
     public function columnFormats(): array
