@@ -7,9 +7,14 @@ use App\Models\TrackList;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class UsersExport implements FromCollection, WithHeadings
+class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithColumnFormatting
 {
 
     use Importable;
@@ -21,6 +26,7 @@ class UsersExport implements FromCollection, WithHeadings
         $this->date = $date;
         $this->city = $city;
     }
+
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -35,14 +41,43 @@ class UsersExport implements FromCollection, WithHeadings
             $query->where('city', 'LIKE', $this->city);
         }
 
-        return $query->with('user')->get();
+        $data = $query->with('user')->get();
+
+        return $data;
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function map($data): array
+    {
+        return [
+            $data->id,
+            $data->track_code,
+            $data->status,
+            $data->city,
+            $data->user->name,
+            $data->user->surname,
+            $data->user->login,
+        ];
+    }
+    public function columnFormats(): array
+    {
+        return [
+            'B' => NumberFormat::FORMAT_NUMBER,
+        ];
     }
     public function headings(): array
     {
         return [
             '#',
             'Трек код',
-            'ФИО',
+            'Статус',
+            'Город',
+            'Имя',
+            'Фамилия',
+            'Телефон',
         ];
     }
 }

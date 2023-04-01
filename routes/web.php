@@ -36,7 +36,7 @@ Route::get('/register-me', function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/file-import', [ProductController::class, 'fileImport'])->name('file-import');
-    Route::post('/file-export', [ProductController::class, 'fileExport'])->name('file-export');
+    Route::get('/file-export', [ProductController::class, 'fileExport'])->name('file-export');
     Route::get('/archive', [DashboardController::class, 'archive'])->name('archive');
     Route::post('/china-product', [ProductController::class, 'addChina'])->name('china-product');
     Route::post('/almatyin-product', [ProductController::class, 'almatyIn'])->name('almatyin-product');
