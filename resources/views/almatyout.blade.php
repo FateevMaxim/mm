@@ -13,7 +13,6 @@
                 @endif
 
                 <div class="grid grid-cols-1 max-w-3xl mx-auto md:grid-cols-2 h-22 pl-6 pr-6 pb-4">
-                    <form method="POST" action="{{ route('almatyout-product') }}" id="almatyOut">
                         <div class="min_height round_border p-4 relative">
                             <div>
                                 <h3 class="mt-0 p-4 text-2xl font-medium leading-tight text-primary">Пункт выдачи Алматы</h3>
@@ -23,11 +22,12 @@
                                     <x-input-label for="phone" :value="__('Трек код')" />
                                     @csrf
                                     <x-text-input id="track_code" class="block mt-1 w-full border-2 border-sky-400" type="text" name="track_code" autofocus />
-                                    <x-primary-button class="mx-auto w-full mt-4" id="giveToClient">
-                                        {{ __('Выдать клиенту') }}
-                                    </x-primary-button>
                                 </div>
                             </form>
+                            <form method="POST" action="{{ route('almatyout-product') }}" id="almatyOut">
+                            <x-primary-button class="mx-auto w-full mt-4" id="giveToClient">
+                                {{ __('Выдать клиенту') }}
+                            </x-primary-button>
                             <div class="absolute p-4 bottom-0">
                                 <h3 class="mt-0 text-2xl font-medium leading-tight text-primary">Выдано сегодня: {{ $count }}</h3>
                             </div>
@@ -150,7 +150,7 @@
                                 event.preventDefault();
 
                                     track_codes = $("#trackcode").text();
-                                url = 'almatyout-product';
+                                    url = 'almatyout-product';
 
                                 /* отправляем данные методом POST */
                                 $.post( url, { track_codes: track_codes, send: true } )
