@@ -58,7 +58,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             $data->status,
             $data->city,
             $data->user->name,
-            $data->user->surname,
             $data->user->login,
         ];
     }
@@ -76,7 +75,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             'Статус',
             'Город',
             'Имя',
-            'Фамилия',
             'Телефон',
         ];
     }

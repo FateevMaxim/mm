@@ -71,7 +71,7 @@
                                             {{ $track->track_code }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $track->user->surname }} &nbsp; {{ $track->user->name }}
+                                            {{ $track->user->name }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $track->user->login }}
