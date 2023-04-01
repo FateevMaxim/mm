@@ -71,10 +71,10 @@
                                             {{ $track->track_code }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $track->user->name }}
+                                            @if(isset($track->user)) {{ $track->user->name }} @endif
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $track->user->login }}
+                                            @if(isset($track->user)) {{ $track->user->login }} @endif
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $track->status }}
