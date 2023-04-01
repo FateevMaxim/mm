@@ -1,0 +1,31 @@
+{
+    "name": "MM929",
+    "short_name": "MM929",
+    "start_url": "/index.php",
+    "background_color": "#f4ede7",
+    "description": "MM929",
+    "display" : "standalone",
+    "orientation" : "portrait",
+    "lang": "ru",
+    "theme_color": "#f4ede7",
+    "icons": [
+        {
+        "src": "/favicons/192x192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+            "purpose": "android"
+        },
+        {
+            "src": "/favicons/512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/favicons/512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
