@@ -49,7 +49,7 @@
                                                 <option value="{{ $city->title }}">{{ $city->title }}</option>
                                             @endforeach
                                         </select>
-                                        <x-primary-button class="mx-auto w-full">
+                                        <x-primary-button class="mx-auto w-full" id="sendTracks">
                                             {{ __('Отправить') }}
                                         </x-primary-button>
                                         <x-secondary-button class="mx-auto mt-4 w-full" id="clear">
@@ -120,6 +120,27 @@
                                      $("#count").text('0');
 
                             });
+
+
+                            $(document).ready(function(){
+                                city = $("#city").val();
+                                if (city === 'Выберите город'){
+                                    $("#sendTracks").prop("disabled",true).css("cursor","not-allowed");
+                                }
+                            });
+
+                            /* прикрепить событие submit к форме */
+                            $("#city").change(function(event) {
+
+                                city = $("#city").val();
+                                if (city === 'Выберите город'){
+                                    $("#sendTracks").prop("disabled",true).css("cursor","not-allowed");
+                                }else{
+                                    $("#sendTracks").prop("disabled",false).css("cursor","pointer");
+                                }
+
+                            });
+
 
                         </script>
                 </div>

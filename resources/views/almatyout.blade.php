@@ -13,7 +13,7 @@
                 @endif
 
                 <div class="grid grid-cols-1 max-w-3xl mx-auto md:grid-cols-2 h-22 pl-6 pr-6 pb-4">
-
+                    <form method="POST" action="{{ route('almatyout-product') }}" id="almatyOut">
                         <div class="min_height round_border p-4 relative">
                             <div>
                                 <h3 class="mt-0 p-4 text-2xl font-medium leading-tight text-primary">Пункт выдачи Алматы</h3>
@@ -23,6 +23,9 @@
                                     <x-input-label for="phone" :value="__('Трек код')" />
                                     @csrf
                                     <x-text-input id="track_code" class="block mt-1 w-full border-2 border-sky-400" type="text" name="track_code" autofocus />
+                                    <x-primary-button class="mx-auto w-full mt-4" id="giveToClient">
+                                        {{ __('Выдать клиенту') }}
+                                    </x-primary-button>
                                 </div>
                             </form>
                             <div class="absolute p-4 bottom-0">
@@ -59,21 +62,24 @@
                             </div>
 
                             <div class="absolute w-full bottom-0 p-4">
-                                <form method="POST" action="{{ route('almatyout-product') }}" id="almatyOut">
+
                                         <div class="w-full">
                                             @csrf
 
-                                            <x-primary-button class="mx-auto w-full">
-                                                {{ __('Выдать клиенту') }}
-                                            </x-primary-button>
+                                            <select id="citySelect" name="city" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required>
+                                                <option value="Алматы" selected>Алматы</option>
+                                                @foreach($cities as $city)
+                                                    <option value="{{ $city->title }}">{{ $city->title }}</option>
+                                                @endforeach
+                                            </select>
                                             <x-secondary-button class="mx-auto mt-4 w-full" id="clear">
                                                 {{ __('Отправить дальше') }}
                                             </x-secondary-button>
                                         </div>
-                                </form>
-                            </div>
 
+                            </div>
                         </div>
+                    </form>
                         <script>
 
                             /* прикрепить событие submit к форме */
@@ -151,6 +157,41 @@
                                     .done(function( data ) {
                                         location.reload();
                                     });
+
+                            });
+
+
+                            $(document).ready(function(){
+                                track_code = $("#track_code").val();
+                                city = $("#citySelect").val();
+                                if (track_code === ''){
+                                    $("#giveToClient").prop("disabled",true).css("cursor","not-allowed");
+                                }
+
+                                if (city === 'Алматы'){
+                                    $("#clear").prop("disabled",true).css("cursor","not-allowed");
+                                }
+                            });
+
+                            /* прикрепить событие submit к форме */
+                            $("#track_code").change(function(event) {
+                                track_code = $("#track_code").val();
+                                if (track_code === ''){
+                                    $("#giveToClient").prop("disabled",true).css("cursor","not-allowed");
+                                }else{
+                                    $("#giveToClient").prop("disabled",false).css("cursor","pointer");
+                                }
+
+                            });
+                            /* прикрепить событие submit к форме */
+                            $("#citySelect").change(function(event) {
+
+                                city = $("#citySelect").val();
+                                if (city === 'Алматы'){
+                                    $("#clear").prop("disabled",true).css("cursor","not-allowed");
+                                }else{
+                                    $("#clear").prop("disabled",false).css("cursor","pointer");
+                                }
 
                             });
 

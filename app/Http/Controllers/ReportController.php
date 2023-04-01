@@ -14,15 +14,17 @@ class ReportController extends Controller
         $config = Configuration::query()->select('title_text')->first();
         $city = '';
         $date = '';
-        return view('report', compact('cities', 'config', 'city', 'date'));
+        $status = '';
+        return view('report', compact('cities', 'config', 'city', 'date', 'status'));
     }
 
     public function getTrackReport(Request $request){
 
         $city = '';
         $date = '';
+        $status = '';
         $query = TrackList::query()
-            ->select('id', 'track_code', 'status', 'city');
+            ->select('track_code', 'status', 'city');
         if ($request->date != null){
             $query->whereDate('to_client', $request->date);
             $date = $request->date;
@@ -31,12 +33,17 @@ class ReportController extends Controller
             $query->where('city', 'LIKE', $request->city);
             $city = $request->city;
         }
+        if ($request->status != 'Выберите статус'){
+            $query->where('status', 'LIKE', $request->status);
+            $status = $request->status;
+        }
         $cities = City::query()->select('title')->get();
         $tracks = $query->with('user')->get();
+        $count = $tracks->count();
         $config = Configuration::query()->select('title_text')->first();
 
 
-        return view('report', compact('tracks', 'cities', 'config', 'city', 'date'));
+        return view('report', compact('tracks', 'cities', 'config', 'city', 'date', 'status', 'count'));
 
     }
 }
