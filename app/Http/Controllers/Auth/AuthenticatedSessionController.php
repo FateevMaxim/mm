@@ -17,8 +17,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(): View| RedirectResponse
     {
+        if (Auth::user() && Auth::user()->getRememberToken()){
+            return redirect()->route('dashboard');
+        }
         $config = Configuration::query()->select('whats_app')->first();
         return view('auth.login')->with(compact( 'config'));
     }

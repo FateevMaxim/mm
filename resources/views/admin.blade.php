@@ -20,13 +20,13 @@
                             </div>
                         </button>
                     </div>
-                    <a href="{{ route('result') }}" class="inline-flex flex-col items-center justify-center px-5">
+                    @if(Auth::user()->type === 'admin')<a href="{{ route('result') }}" class="inline-flex flex-col items-center justify-center px-5">
                         <button type="button">
                             <div class="items-center">
                                 <span class="text-sm text-white leading-8">Итоги</span>
                             </div>
                         </button>
-                    </a>
+                    </a>@endif
                 </div>
             </div>
             <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
@@ -187,12 +187,51 @@
                                     <p><small>Дата регистрации</small><br />
                                         <span>{{$user->created_at}}</span></p>
                                 </li>
-                                <li class="flex items-center">
-                                    <form method="POST" action="{{ route('client-access', ['id' => $user->id] ) }}" class="flex inline-flex">
-                                        <x-classic-button class="w-9/12 mx-auto w-full justify-center inline-flex">
+                                <li class="flex justify-between gap-4">
+                                    <form method="POST" action="{{ route('client-access', ['id' => $user->id] ) }}" class="grid items-center w-full justify-end mt-4">
+                                        <x-classic-button>
                                             @if($user->is_active == true) {{ __('Заблокировать') }} @else {{ __('Дать доступ') }} @endif
                                         </x-classic-button>
                                     </form>
+                                    <x-secondary-button data-modal-target="editModal{{$user->id}}" data-modal-toggle="editModal{{$user->id}}" class="grid items-center w-full mt-4">
+                                        Редактировать
+                                    </x-secondary-button>
+
+                                    <!-- Main modal -->
+                                    <div id="editModal{{$user->id}}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+                                        <div class="relative w-3/4 max-w-md md:h-auto">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow">
+                                                <!-- Modal header -->
+                                                <div class="justify-between bg-[#313131] text-center p-4 border-b rounded-t ">
+                                                    <h3 class="text-xl font-semibold text-white">
+                                                        {{$user->name}}
+                                                    </h3>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-6 text-center space-y-4">
+                                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                        Внимание!!!<br />
+                                                        Вы редактируете город клиента
+                                                    </p>
+                                                </div>
+                                                <form method="POST" action="{{ route('client-edit') }}">
+                                                    @csrf
+                                                    <label for="editCity" class="grid w-9/12 mx-auto mb-4">
+                                                        <x-input-label for="editCity" :value="__('Город')" />
+                                                        <x-text-input type="text" name="editCity" value="{{$user->city}}" />
+                                                    </label>
+
+                                                    <input type="hidden" name="userId" value="{{$user->id}}" />
+                                                    <!-- Modal footer -->
+                                                    <div class="grid grid-cols-2 items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                                                        <button data-modal-hide="editModal{{$user->id}}" type="submit" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Да</button>
+                                                        <button data-modal-hide="editModal{{$user->id}}" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Отмена</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </li>
                             </ul>
