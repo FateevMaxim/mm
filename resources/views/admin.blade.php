@@ -118,8 +118,8 @@
                             @else style="background-color: rgb(194 194 194);" @endif>
                             <div class="grid grid-cols-3 gap-4">
                                 <div class="col-span-2 ml-5">
-                                    <span data-tooltip-target="tooltip-click" data-tooltip-trigger="click" class="cursor-pointer">{{$user->login}}</span>
-                                    <div id="tooltip-click" role="tooltip" class="absolute left-0 z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
+                                    <span data-tooltip-target="tooltip-click{{$user->id}}" data-tooltip-trigger="click" class="cursor-pointer">{{$user->login}}</span>
+                                    <div id="tooltip-click{{$user->id}}" role="tooltip" class="absolute left-0 z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
                                         {!! $user->password !!}
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
