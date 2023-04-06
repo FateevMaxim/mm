@@ -187,13 +187,13 @@
                                     <p><small>Дата регистрации</small><br />
                                         <span>{{$user->created_at}}</span></p>
                                 </li>
-                                <li class="flex justify-between gap-4">
+                                <li class="grid justify-center text-center gap-4">
                                     <form method="POST" action="{{ route('client-access', ['id' => $user->id] ) }}" class="grid items-center w-full justify-end mt-4">
                                         <x-classic-button>
                                             @if($user->is_active == true) {{ __('Заблокировать') }} @else {{ __('Дать доступ') }} @endif
                                         </x-classic-button>
                                     </form>
-                                    <x-secondary-button data-modal-target="editModal{{$user->id}}" data-modal-toggle="editModal{{$user->id}}" class="grid items-center w-full mt-4">
+                                    <x-secondary-button data-modal-target="editModal{{$user->id}}" data-modal-toggle="editModal{{$user->id}}" class="grid items-center w-full justify-end py-3">
                                         Редактировать
                                     </x-secondary-button>
 
