@@ -146,9 +146,8 @@ class ProductController extends Controller
         ]);
 
         if ($validated){
-            $archive = ClientTrackList::query()->where('track_code', $request['delete_track'])->first();
-            $archive->status = 'deleted';
-            $archive->save();
+            $archive = ClientTrackList::query()->select('id')->where('track_code', $request['delete_track'])->first();
+            ClientTrackList::destroy($archive->id);
             return redirect()->back()->with('message', 'Трек код успешно удалён');
         }
 
