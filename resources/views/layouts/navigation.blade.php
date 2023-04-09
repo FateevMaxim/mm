@@ -44,7 +44,7 @@
                         </div>
                     @endif
 
-                    @if(\Illuminate\Support\Facades\Auth::user()->type === null)
+
                         <div class="bg-[#b6da3a82] p-2 mt-4 mb-4">
                             <p class="mb-6 text-sm text-dark font-bold">Адрес склада в Китае</p>
                             <p class="mb-6 text-sm text-dark" id="china">@yield( 'chinaaddress' ) <br />
@@ -61,7 +61,6 @@
                             <img src="{{asset('images/china.jpg')}}" alt="China">
                         </div>
                         <hr class="h-px mb-4 bg-gray-200 border-0">
-                    @endif
 
                     @if(\Illuminate\Support\Facades\Auth::user()->type === 'othercity')
                         <a href="{{ route('track_report_page') }}"  class="grid grid-col-1 px-4 mt-6 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200">Отчёт по трек кодам</a>
