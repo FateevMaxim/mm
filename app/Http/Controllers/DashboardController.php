@@ -39,7 +39,7 @@ class DashboardController extends Controller
         }elseif (Auth::user()->is_active === 1 && Auth::user()->type === 'almatyin'){
             $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
             $count = TrackList::query()->whereDate('to_almaty', Carbon::today())->count();
-            return view('almaty')->with(compact('count', 'config'));
+            return view('almaty', ['count' => $count, 'config' => $config, 'cityin' => 'Алматы']);
         }elseif (Auth::user()->is_active === 1 && Auth::user()->type === 'taukentin') {
             $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
             $count = TrackList::query()->whereDate('to_city', Carbon::today())->where('status', 'Получено на складе в Таукенте')->count();
