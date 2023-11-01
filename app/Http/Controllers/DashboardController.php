@@ -36,6 +36,10 @@ class DashboardController extends Controller
             $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
             $count = TrackList::query()->whereDate('created_at', Carbon::today())->count();
             return view('stock')->with(compact('count', 'config'));
+        }elseif (Auth::user()->type === 'newstock') {
+            $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
+            $count = TrackList::query()->whereDate('created_at', Carbon::today())->count();
+            return view('newstock')->with(compact('count', 'config'));
         }elseif (Auth::user()->is_active === 1 && Auth::user()->type === 'almatyin'){
             $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
             $count = TrackList::query()->whereDate('to_almaty', Carbon::today())->count();
