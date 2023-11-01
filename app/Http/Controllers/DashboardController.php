@@ -52,7 +52,7 @@ class DashboardController extends Controller
             $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
             $count = TrackList::query()->whereDate('to_client', Carbon::today())->count();
             $cities = City::query()->select('title')->get();
-            return view('almatyout')->with(compact('count', 'config', 'cities'));
+            return view('almatyout', ['count' => $count, 'config' => $config, 'cities' => $cities, 'cityin' => 'Алматы']);
         }elseif (Auth::user()->is_active === 1 && Auth::user()->type === 'taukentout') {
             $count = TrackList::query()->whereDate('to_client_city', Carbon::today())->count();
             $cities = City::query()->select('title')->get();
